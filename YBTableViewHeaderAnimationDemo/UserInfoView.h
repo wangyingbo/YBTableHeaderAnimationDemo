@@ -15,8 +15,11 @@
 #define FULL_SCREEN_HEIGHT   [UIScreen mainScreen].bounds.size.height
 
 typedef enum {
+    /**无效果*/
     FBUserInfoHeaderViewAnimationTypeNone = 0,
+    /**下拉放大*/
     FBUserInfoHeaderViewAnimationTypeScale,
+    /**下拉圆弧*/
     FBUserInfoHeaderViewAnimationTypeCircle,
 } FBUserInfoHeaderViewAnimationType;
 
