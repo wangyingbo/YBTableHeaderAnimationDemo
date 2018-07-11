@@ -3,7 +3,7 @@
 
 **tableView 的 tableHeaderView 的下拉动画效果
 
-![预览图](https://raw.githubusercontent.com/wangyingbo/YBTableViewHeaderAnimationDemo/master/gif.gif)
+![预览图](https://raw.githubusercontent.com/wangyingbo/YBTableHeaderAnimationDemo/master/gif.gif)
 
 一共两种效果:
 
