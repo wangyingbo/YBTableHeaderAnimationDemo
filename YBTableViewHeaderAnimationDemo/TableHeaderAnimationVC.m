@@ -174,6 +174,9 @@ CGFloat kMaxScrollContentSizeY = 250;
         if (offsetY < 0) {
             frame.size.height = (self.headerViewHeight + ABS(offsetY))>kMaxScrollContentSizeY?kMaxScrollContentSizeY:(self.headerViewHeight + ABS(offsetY));
             frame.origin.y = 0;//及时归零
+            if (self.headerViewHeight+ABS(offsetY)>kMaxScrollContentSizeY) {
+                scrollView.contentOffset = CGPointMake(0, self.headerViewHeight-kMaxScrollContentSizeY);
+            }
         } else {//向上滑
             //取消向上滑到顶的弹簧效果
             scrollView.contentOffset = CGPointZero;
@@ -193,6 +196,8 @@ CGFloat kMaxScrollContentSizeY = 250;
             frame =  CGRectMake(- (width * f - width) / 2, 0, width * f, (self.headerViewHeight + ABS(offsetY)));
             
         } else {//向上滑
+            //取消向上滑到顶的弹簧效果
+            scrollView.contentOffset = CGPointZero;
             frame.size.height = self.headerViewHeight;
             frame.origin.y = 0;//-offsetY
         }
