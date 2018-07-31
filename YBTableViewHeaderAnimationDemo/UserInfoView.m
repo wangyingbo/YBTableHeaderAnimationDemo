@@ -162,18 +162,18 @@
 }
 
 //这个函数会被 hitTest 调用，返回 false 表示点击的不是自己，返回 true 表示点击的是自己
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    // 判断点击的点，在不在圆内
-    CGPoint center = self.userLogoImageView.center;
-    CGFloat r = self.userLogoImageView.frame.size.width * 0.5;
-    CGFloat newR = sqrt((center.x - point.x) * (center.x - point.x) + (center.y - point.y) * (center.y - point.y));
-    
-    // 浮点数比较不推荐用等号，虽然 ios 底层已经处理了这种情况
-    if (newR > r) {
-        return false;
-    } else {
-        return true;
-    }
-}
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//    // 判断点击的点，在不在圆内
+//    CGPoint center = self.userLogoImageView.center;
+//    CGFloat r = self.userLogoImageView.frame.size.width * 0.5;
+//    CGFloat newR = sqrt((center.x - point.x) * (center.x - point.x) + (center.y - point.y) * (center.y - point.y));
+//
+//    // 浮点数比较不推荐用等号，虽然 ios 底层已经处理了这种情况
+//    if (newR > r) {
+//        return false;
+//    } else {
+//        return true;
+//    }
+//}
 
 @end
