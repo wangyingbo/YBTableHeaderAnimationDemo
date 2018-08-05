@@ -24,7 +24,6 @@
 }
 
 -(void)configUI{
-    self.backgroundColor  = [UIColor brownColor];
     self.layer.masksToBounds = YES;
     self.clipsToBounds = YES;
     
@@ -34,28 +33,27 @@
     self.shapeLayer = shapeLayer;
     
     _backGroundView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, FULL_SCREEN_WIDTH, self.headerViewHeight)];
-    _backGroundView.backgroundColor = [UIColor brownColor];
     [_backGroundView setImage:[UIImage imageNamed:@"user_backGround"]];
     _backGroundView.clipsToBounds = YES;
     [self addSubview:_backGroundView];
     
-    _userLogoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(14, 67, 58, 58)];
+    _userLogoImageView = [[UIImageView alloc]init];
     _userLogoImageView.backgroundColor = [UIColor whiteColor];
-    _userLogoImageView.layer.cornerRadius = 29;
     _userLogoImageView.userInteractionEnabled = YES;
     [_backGroundView addSubview:_userLogoImageView];
     
-    UIImageView *logoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 8.5, 28, 41)];
+    UIImageView *logoImageView = [[UIImageView alloc]init];
     [logoImageView setImage:[UIImage imageNamed:@"user_logo"]];
     [_userLogoImageView addSubview:logoImageView];
+    self.subLogoImageView = logoImageView;
     
-    _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_userLogoImageView.frame)+11, CGRectGetMinY(_userLogoImageView.frame)+7, 200, 20)];
+    _titleLabel = [[UILabel alloc]init];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.textColor = [UIColor whiteColor];
     _titleLabel.font = [UIFont systemFontOfSize:14.f];
     [_backGroundView addSubview:_titleLabel];
     
-    _subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(_titleLabel.frame), CGRectGetMaxY(_titleLabel.frame)+2, 80, 17)];
+    _subTitleLabel = [[UILabel alloc]init];
     _subTitleLabel.textAlignment = NSTextAlignmentLeft;
     _subTitleLabel.textColor = [UIColor whiteColor];
     _subTitleLabel.font = [UIFont systemFontOfSize:12.];
@@ -69,25 +67,25 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
-    if (self.animationType == FBUserInfoHeaderViewAnimationTypeCircle) {
-        self.backgroundColor = [UIColor clearColor];
-        self.backGroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        //加一个偏移值
-        CGFloat overY = ((self.frame.size.height-(self.frame.size.height-self.headerViewHeight)/2)/2 - self.headerViewHeight*0.5);
-        self.userLogoImageView.frame = CGRectMake(14, 67+overY, 58, 58);
-        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(_userLogoImageView.frame)+11, CGRectGetMinY(_userLogoImageView.frame)+7, 200, 20);
-        self.subTitleLabel.frame = CGRectMake(CGRectGetMinX(_titleLabel.frame), CGRectGetMaxY(_titleLabel.frame)+2, 80, 17);
-        
-        [self setNeedsDisplay];     // 重绘
-    }else if (self.animationType == FBUserInfoHeaderViewAnimationTypeScale) {
-        
-        self.backgroundColor = [UIColor whiteColor];
+    
+    CGFloat logoImageView_h = 58.0;
+    CGFloat titleLabel_h = 20.0;
+    
+    self.backGroundView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    self.backgroundColor = [UIColor clearColor];
+    if (self.animationType == FBUserInfoHeaderViewAnimationTypeScale) {
         self.backGroundView.frame = self.bounds;
-        self.userLogoImageView.frame = CGRectMake(self.frame.size.width/2-FULL_SCREEN_WIDTH/2 + 14, 67+(self.frame.size.height/2 - self.headerViewHeight/2), 58, 58);
-        self.titleLabel.frame = CGRectMake(CGRectGetMaxX(_userLogoImageView.frame)+11, CGRectGetMinY(_userLogoImageView.frame)+7, 200, 20);
-        self.subTitleLabel.frame = CGRectMake(CGRectGetMinX(_titleLabel.frame), CGRectGetMaxY(_titleLabel.frame)+2, 80, 17);
     }
+    self.userLogoImageView.frame = CGRectMake(self.frame.size.width/2-FULL_SCREEN_WIDTH/2 + 14, self.frame.size.height/2 - logoImageView_h/2, logoImageView_h, logoImageView_h);
+    self.userLogoImageView.layer.cornerRadius = 29;
+    self.subLogoImageView.frame = CGRectMake(0, 0, 58*(29.0/40)*(2./3), 80*(29./40)*(2./3));
+    self.subLogoImageView.center = CGPointMake(self.userLogoImageView.frame.size.width/2, self.userLogoImageView.frame.size.height/2);
+    self.titleLabel.frame = CGRectMake(CGRectGetMaxX(self.userLogoImageView.frame)+5, CGRectGetMaxY(self.userLogoImageView.frame)-CGRectGetHeight(self.userLogoImageView.frame)/2 - titleLabel_h, 100, titleLabel_h);
+    self.subTitleLabel.frame = CGRectMake(CGRectGetMinX(self.titleLabel.frame), CGRectGetMaxY(self.titleLabel.frame), CGRectGetWidth(self.titleLabel.frame), CGRectGetHeight(self.titleLabel.frame));
+    if (self.animationType == FBUserInfoHeaderViewAnimationTypeCircle) {
+        [self setNeedsDisplay];
+    }
+    
 }
 
 
@@ -98,7 +96,7 @@
     CGFloat h1 = self.headerViewHeight;
     CGFloat w = rect.size.width;
     CGFloat h = rect.size.height;
-    CGPoint controlPoint = CGPointMake(w/2, h + (h - h1) * 0.5);
+    CGPoint controlPoint = CGPointMake(w/2, h + (h - h1));//(h - h1) * 0.5
     
     if (self.animationType == FBUserInfoHeaderViewAnimationTypeCircle)
     {
@@ -111,53 +109,6 @@
         [bezierPath closePath];//将起点与结束点相连接
         self.shapeLayer.path = bezierPath.CGPath;
         self.backGroundView.layer.mask = self.shapeLayer;
-        
-        
-        
-//        //获取上下文
-//        //CGContextRef 用来保存图形信息.输出目标
-//        CGContextRef context = UIGraphicsGetCurrentContext();
-//        //设置颜色
-//        CGContextSetRGBFillColor(context, 0.00392, 0.54117, 0.85098, 1.0);
-//        //CGContextSetRGBFillColor(context, 1., 1., 1., 1.0);
-//        //起点
-//        CGContextMoveToPoint(context, w, h1);
-//        //画线
-//        CGContextAddLineToPoint(context, w, 0);
-//        CGContextAddLineToPoint(context, 0, 0);
-//        CGContextAddLineToPoint(context, 0, h1);
-//        CGContextAddQuadCurveToPoint(context, controlPoint.x, controlPoint.y, w, h1);
-//        //闭合
-//        CGContextClosePath(context);
-//        CGContextDrawPath(context, kCGPathFill);
-        
-        
-        
-//        // 0.加载图片
-//        UIImage *originImage = [UIImage imageNamed:@"user_backGround"];
-//        UIImage *image = originImage;
-//        // 1.开启位图上下文，跟图片尺寸一样大
-//        UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
-//        // 2.设置圆形裁剪区域，正切与图片
-//        // 2.1创建圆形的路径
-//        CGFloat scaleY = h1/(h/h1);
-//        UIBezierPath *path = [UIBezierPath bezierPath];
-//        [path moveToPoint:CGPointMake(image.size.width, scaleY)];
-//        [path addLineToPoint:CGPointMake(image.size.width, 0)];
-//        [path addLineToPoint:CGPointMake(0, 0)];
-//        [path addLineToPoint:CGPointMake(0, scaleY)];
-//        [path addQuadCurveToPoint:CGPointMake(image.size.width, scaleY) controlPoint:CGPointMake(image.size.width/2, controlPoint.y/(h/h1))];//
-//        [path closePath];
-//
-//        // 2.2把路径设置为裁剪区域
-//        [path addClip];
-//        // 3.绘制图片
-//        [image drawAtPoint:CGPointZero];
-//        // 4.从上下文中获取图片
-//        UIImage *clipImage = UIGraphicsGetImageFromCurrentImageContext();
-//        // 5.关闭上下文
-//        UIGraphicsEndImageContext();
-//        _backGroundView.image = clipImage;
         
     }else if (self.animationType == FBUserInfoHeaderViewAnimationTypeScale) {
         

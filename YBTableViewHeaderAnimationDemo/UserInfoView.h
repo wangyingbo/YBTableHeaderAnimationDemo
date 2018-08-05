@@ -27,6 +27,7 @@ typedef enum {
 @interface UserInfoView : UIView
 @property (nonatomic,strong) UIImageView *backGroundView;
 @property (nonatomic,strong) UIImageView *userLogoImageView;
+@property (nonatomic, strong) UIImageView *subLogoImageView;
 @property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UILabel *subTitleLabel;
 @property (nonatomic, assign) FBUserInfoHeaderViewAnimationType animationType;

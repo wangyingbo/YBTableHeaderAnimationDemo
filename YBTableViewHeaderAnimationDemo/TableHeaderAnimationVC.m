@@ -8,9 +8,8 @@
 
 #import "TableHeaderAnimationVC.h"
 #import "UserInfoView.h"
-#import "UINavigationController+ColorFix.h"
 
-CGFloat kMaxScrollContentSizeY = 300;
+CGFloat const kMaxScrollContentSizeY = 280;
 
 @interface TableHeaderAnimationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -65,7 +64,7 @@ CGFloat kMaxScrollContentSizeY = 300;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBackgroundAlpha:0.0];
+    
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
@@ -73,7 +72,7 @@ CGFloat kMaxScrollContentSizeY = 300;
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBackgroundAlpha:1.0];
+    
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     [self.navigationController setNavigationBarHidden:NO animated:animated];
@@ -116,7 +115,7 @@ CGFloat kMaxScrollContentSizeY = 300;
     return _userInfoView;
 }
 
-#pragma mark - dataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSArray *arr = self.dataArray[section];
@@ -149,7 +148,7 @@ CGFloat kMaxScrollContentSizeY = 300;
     return cell;
 }
 
-#pragma mark - delegate
+#pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
@@ -205,7 +204,6 @@ CGFloat kMaxScrollContentSizeY = 300;
     }
     
 }
-
 
 // scrollViewWillEndDragging，这个方法内判断一下，contentOffset.y 值，如果超过多少值，那么自动回调一个 block，可实现下拉刷新
 //松手时触发

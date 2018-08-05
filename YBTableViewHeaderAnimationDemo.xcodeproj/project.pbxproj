@@ -17,7 +17,6 @@
 		D110E14620F5E72F00DCEB16 /* YBTableViewHeaderAnimationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D110E14520F5E72F00DCEB16 /* YBTableViewHeaderAnimationDemoTests.m */; };
 		D110E15120F5E72F00DCEB16 /* YBTableViewHeaderAnimationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D110E15020F5E72F00DCEB16 /* YBTableViewHeaderAnimationDemoUITests.m */; };
 		D110E16020F5E8FB00DCEB16 /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = D110E15F20F5E8FB00DCEB16 /* UserInfoView.m */; };
-		D110E16320F5EC9A00DCEB16 /* UINavigationController+ColorFix.m in Sources */ = {isa = PBXBuildFile; fileRef = D110E16220F5EC9A00DCEB16 /* UINavigationController+ColorFix.m */; };
 		D110E16620F5EDF800DCEB16 /* TableHeaderAnimationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D110E16520F5EDF800DCEB16 /* TableHeaderAnimationVC.m */; };
 /* End PBXBuildFile section */
 
@@ -59,8 +58,6 @@
 		D110E15220F5E72F00DCEB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D110E15E20F5E8FB00DCEB16 /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
 		D110E15F20F5E8FB00DCEB16 /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
-		D110E16120F5EC9A00DCEB16 /* UINavigationController+ColorFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+ColorFix.h"; sourceTree = "<group>"; };
-		D110E16220F5EC9A00DCEB16 /* UINavigationController+ColorFix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+ColorFix.m"; sourceTree = "<group>"; };
 		D110E16420F5EDF800DCEB16 /* TableHeaderAnimationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableHeaderAnimationVC.h; sourceTree = "<group>"; };
 		D110E16520F5EDF800DCEB16 /* TableHeaderAnimationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableHeaderAnimationVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,8 +128,6 @@
 				D110E16520F5EDF800DCEB16 /* TableHeaderAnimationVC.m */,
 				D110E15E20F5E8FB00DCEB16 /* UserInfoView.h */,
 				D110E15F20F5E8FB00DCEB16 /* UserInfoView.m */,
-				D110E16120F5EC9A00DCEB16 /* UINavigationController+ColorFix.h */,
-				D110E16220F5EC9A00DCEB16 /* UINavigationController+ColorFix.m */,
 				D110E13220F5E72E00DCEB16 /* Main.storyboard */,
 				D110E13520F5E72F00DCEB16 /* Assets.xcassets */,
 				D110E13720F5E72F00DCEB16 /* LaunchScreen.storyboard */,
@@ -294,7 +289,6 @@
 				D110E16620F5EDF800DCEB16 /* TableHeaderAnimationVC.m in Sources */,
 				D110E13C20F5E72F00DCEB16 /* main.m in Sources */,
 				D110E12E20F5E72E00DCEB16 /* AppDelegate.m in Sources */,
-				D110E16320F5EC9A00DCEB16 /* UINavigationController+ColorFix.m in Sources */,
 				03387CBA20F5F5330063DE67 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				D110E16020F5E8FB00DCEB16 /* UserInfoView.m in Sources */,
 			);
