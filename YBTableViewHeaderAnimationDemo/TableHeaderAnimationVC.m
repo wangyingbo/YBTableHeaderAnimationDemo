@@ -10,7 +10,7 @@
 #import "UserInfoView.h"
 #import "UINavigationController+ColorFix.h"
 
-CGFloat kMaxScrollContentSizeY = 250;
+CGFloat kMaxScrollContentSizeY = 300;
 
 @interface TableHeaderAnimationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;

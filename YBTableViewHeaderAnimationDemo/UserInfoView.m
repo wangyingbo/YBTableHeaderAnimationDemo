@@ -9,6 +9,7 @@
 #import "UserInfoView.h"
 @interface UserInfoView()
 @property (nonatomic, assign) CGFloat headerViewHeight;
+@property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @end
 @implementation UserInfoView
 
@@ -23,8 +24,19 @@
 }
 
 -(void)configUI{
+    self.backgroundColor  = [UIColor brownColor];
+    self.layer.masksToBounds = YES;
+    self.clipsToBounds = YES;
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer new];
+    shapeLayer.fillColor = [UIColor redColor].CGColor; //填充颜色
+    [self.layer addSublayer:shapeLayer];
+    self.shapeLayer = shapeLayer;
+    
     _backGroundView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, FULL_SCREEN_WIDTH, self.headerViewHeight)];
+    _backGroundView.backgroundColor = [UIColor brownColor];
     [_backGroundView setImage:[UIImage imageNamed:@"user_backGround"]];
+    _backGroundView.clipsToBounds = YES;
     [self addSubview:_backGroundView];
     
     _userLogoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(14, 67, 58, 58)];
@@ -49,25 +61,6 @@
     _subTitleLabel.font = [UIFont systemFontOfSize:12.];
     [_backGroundView addSubview:_subTitleLabel];
 }
-
-//-(void)setInfoWithDefaultModel:(UserInfoDataModel*)userInfoModel{
-//    [FBAccountTool account].userInfoModel = userInfoModel;
-//    if (userInfoModel.alias.isAvailable) {
-//        _titleLabel.text = userInfoModel.alias;
-//    }else{
-//        _titleLabel.text = @"昵称";
-//    }
-//
-//    if (userInfoModel.mobile.isAvailable) {
-//        _subTitleLabel.text = userInfoModel.mobile;
-//    }
-//
-//    if ([userInfoModel.certificationFlag isEqualToString:@"01"]) {
-//        _subTitleRightLabel.text = @"  已实名认证";
-//    }else{
-//        _subTitleRightLabel.text = @"  未实名认证";
-//    }
-//}
 
 -(void)setInfoWithNoLoginData{
     _titleLabel.text = @"请登录";
@@ -109,51 +102,62 @@
     
     if (self.animationType == FBUserInfoHeaderViewAnimationTypeCircle)
     {
-        
-        //    //获取上下文
-        //    //CGContextRef 用来保存图形信息.输出目标
-        //    CGContextRef context = UIGraphicsGetCurrentContext();
-        //    //设置颜色
-        //    CGContextSetRGBFillColor(context, 0.00392, 0.54117, 0.85098, 1.0);
-        //    //CGContextSetRGBFillColor(context, 1., 1., 1., 1.0);
-        //    //起点
-        //    CGContextMoveToPoint(context, w, h1);
-        //    //画线
-        //    CGContextAddLineToPoint(context, w, 0);
-        //    CGContextAddLineToPoint(context, 0, 0);
-        //    CGContextAddLineToPoint(context, 0, h1);
-        //    CGContextAddQuadCurveToPoint(context, controlPoint.x, controlPoint.y, w, h1);
-        //    //闭合
-        //    CGContextClosePath(context);
-        //    CGContextDrawPath(context, kCGPathFill);
+        UIBezierPath *bezierPath = [UIBezierPath new];
+        [bezierPath moveToPoint:CGPointMake(w, h1)];
+        [bezierPath addLineToPoint:CGPointMake(w, 0)];
+        [bezierPath addLineToPoint:CGPointMake(0, 0)];
+        [bezierPath addLineToPoint:CGPointMake(0, h1)];
+        [bezierPath addQuadCurveToPoint:CGPointMake(w, h1) controlPoint:controlPoint];
+        [bezierPath closePath];//将起点与结束点相连接
+        self.shapeLayer.path = bezierPath.CGPath;
+        self.backGroundView.layer.mask = self.shapeLayer;
         
         
-        // 0.加载图片
-        UIImage *originImage = [UIImage imageNamed:@"user_backGround"];
-        UIImage *image = originImage;
-        // 1.开启位图上下文，跟图片尺寸一样大
-        UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
-        // 2.设置圆形裁剪区域，正切与图片
-        // 2.1创建圆形的路径
-        CGFloat scaleY = h1/(h/h1);
-        UIBezierPath *path = [UIBezierPath bezierPath];
-        [path moveToPoint:CGPointMake(image.size.width, scaleY)];
-        [path addLineToPoint:CGPointMake(image.size.width, 0)];
-        [path addLineToPoint:CGPointMake(0, 0)];
-        [path addLineToPoint:CGPointMake(0, scaleY)];
-        [path addQuadCurveToPoint:CGPointMake(image.size.width, scaleY) controlPoint:CGPointMake(image.size.width/2, controlPoint.y/(h/h1))];
-        [path closePath];
-        //    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
         
-        // 2.2把路径设置为裁剪区域
-        [path addClip];
-        // 3.绘制图片
-        [image drawAtPoint:CGPointZero];
-        // 4.从上下文中获取图片
-        UIImage *clipImage = UIGraphicsGetImageFromCurrentImageContext();
-        // 5.关闭上下文
-        UIGraphicsEndImageContext();
-        _backGroundView.image = clipImage;
+//        //获取上下文
+//        //CGContextRef 用来保存图形信息.输出目标
+//        CGContextRef context = UIGraphicsGetCurrentContext();
+//        //设置颜色
+//        CGContextSetRGBFillColor(context, 0.00392, 0.54117, 0.85098, 1.0);
+//        //CGContextSetRGBFillColor(context, 1., 1., 1., 1.0);
+//        //起点
+//        CGContextMoveToPoint(context, w, h1);
+//        //画线
+//        CGContextAddLineToPoint(context, w, 0);
+//        CGContextAddLineToPoint(context, 0, 0);
+//        CGContextAddLineToPoint(context, 0, h1);
+//        CGContextAddQuadCurveToPoint(context, controlPoint.x, controlPoint.y, w, h1);
+//        //闭合
+//        CGContextClosePath(context);
+//        CGContextDrawPath(context, kCGPathFill);
+        
+        
+        
+//        // 0.加载图片
+//        UIImage *originImage = [UIImage imageNamed:@"user_backGround"];
+//        UIImage *image = originImage;
+//        // 1.开启位图上下文，跟图片尺寸一样大
+//        UIGraphicsBeginImageContextWithOptions(image.size, NO, 0);
+//        // 2.设置圆形裁剪区域，正切与图片
+//        // 2.1创建圆形的路径
+//        CGFloat scaleY = h1/(h/h1);
+//        UIBezierPath *path = [UIBezierPath bezierPath];
+//        [path moveToPoint:CGPointMake(image.size.width, scaleY)];
+//        [path addLineToPoint:CGPointMake(image.size.width, 0)];
+//        [path addLineToPoint:CGPointMake(0, 0)];
+//        [path addLineToPoint:CGPointMake(0, scaleY)];
+//        [path addQuadCurveToPoint:CGPointMake(image.size.width, scaleY) controlPoint:CGPointMake(image.size.width/2, controlPoint.y/(h/h1))];//
+//        [path closePath];
+//
+//        // 2.2把路径设置为裁剪区域
+//        [path addClip];
+//        // 3.绘制图片
+//        [image drawAtPoint:CGPointZero];
+//        // 4.从上下文中获取图片
+//        UIImage *clipImage = UIGraphicsGetImageFromCurrentImageContext();
+//        // 5.关闭上下文
+//        UIGraphicsEndImageContext();
+//        _backGroundView.image = clipImage;
         
     }else if (self.animationType == FBUserInfoHeaderViewAnimationTypeScale) {
         

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kUSER_INFO_HEADERVIEW_H 180
+#define kUSER_INFO_HEADERVIEW_H 220
 
 
 #define FULL_SCREEN_WIDTH    [UIScreen mainScreen].bounds.size.width
