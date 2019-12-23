@@ -8,6 +8,7 @@
 一共两种效果:
 
 	typedef enum {
+		/**到此一游*/
 	    /**无效果*/
 	    FBUserInfoHeaderViewAnimationTypeNone = 0,
 	    /**下拉放大*/
